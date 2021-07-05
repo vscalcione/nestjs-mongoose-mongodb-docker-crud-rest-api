@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import { User } from './user.model';
+import { User } from '../model/user.model';
 
 @Injectable()
 export class UsersService {
@@ -12,10 +12,10 @@ export class UsersService {
    * Create one user
    * @param name
    * @param surname
-   * @param points
+   * @param email
    */
-  async createOneUser(name: string, surname: string, points: number) {
-    const newUser = new this.userModel({ name, surname, points });
+  async createOneUser(name: string, surname: string, email: string) {
+    const newUser = new this.userModel({ name, surname, email });
     const result = await newUser.save();
     return result.id as string;
   }
@@ -29,7 +29,7 @@ export class UsersService {
       id: user.id,
       name: user.name,
       surname: user.surname,
-      points: user.points,
+      email: user.email,
     }));
   }
 
@@ -42,7 +42,7 @@ export class UsersService {
       id: user.id,
       name: user.name,
       surname: user.surname,
-      points: user.points,
+      email: user.email,
     };
   }
 
@@ -51,18 +51,18 @@ export class UsersService {
    * @param userId
    * @param name
    * @param surname
-   * @param points
+   * @param emaill
    */
   async updateUser(
     userId: string,
     name: string,
     surname: string,
-    points: number,
+    email: string,
   ) {
     const modifiedUser = await this.findUser(userId);
     if (name) modifiedUser.name = name;
     if (surname) modifiedUser.surname = surname;
-    if (points) modifiedUser.points = points;
+    if (email) modifiedUser.email = email;
     modifiedUser.save();
   }
 

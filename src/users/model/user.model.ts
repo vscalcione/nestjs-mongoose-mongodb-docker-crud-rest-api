@@ -9,8 +9,8 @@ export const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  points: {
-    type: Number,
+  email: {
+    type: String,
     required: true,
   },
 });
@@ -19,5 +19,5 @@ export interface User extends mongoose.Document {
   id: string;
   name: string;
   surname: string;
-  points: number;
+  email: number;
 }
